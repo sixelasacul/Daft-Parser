@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="module_daft_parser" default="compile.module.daft_parser">
+  <dirname property="module.daft_parser.basedir" file="${ant.file.module_daft_parser}"/>
+  
+  <property name="module.jdk.home.daft_parser" value="${project.jdk.home}"/>
+  <property name="module.jdk.bin.daft_parser" value="${project.jdk.bin}"/>
+  <property name="module.jdk.classpath.daft_parser" value="${project.jdk.classpath}"/>
+  
+  <property name="compiler.args.daft_parser" value="-encoding UTF-8 -source 8 -target 8 ${compiler.args}"/>
+  
+  <property name="daft_parser.output.dir" value="${module.daft_parser.basedir}/out/production/daft parser"/>
+  <property name="daft_parser.testoutput.dir" value="${module.daft_parser.basedir}/out/test/daft parser"/>
+  
+  <path id="daft_parser.module.bootclasspath">
+    <!-- Paths to be included in compilation bootclasspath -->
+  </path>
+  
+  <path id="daft_parser.module.production.classpath">
+    <path refid="${module.jdk.classpath.daft_parser}"/>
+  </path>
+  
+  <path id="daft_parser.runtime.production.module.classpath">
+    <pathelement location="${daft_parser.output.dir}"/>
+  </path>
+  
+  <path id="daft_parser.module.classpath">
+    <path refid="${module.jdk.classpath.daft_parser}"/>
+    <pathelement location="${daft_parser.output.dir}"/>
+  </path>
+  
+  <path id="daft_parser.runtime.module.classpath">
+    <pathelement location="${daft_parser.testoutput.dir}"/>
+    <pathelement location="${daft_parser.output.dir}"/>
+  </path>
+  
+  
+  <patternset id="excluded.from.module.daft_parser">
+    <patternset refid="ignored.files"/>
+  </patternset>
+  
+  <patternset id="excluded.from.compilation.daft_parser">
+    <patternset refid="excluded.from.module.daft_parser"/>
+  </patternset>
+  
+  <path id="daft_parser.module.sourcepath">
+    <dirset dir="${module.daft_parser.basedir}">
+      <include name="src"/>
+    </dirset>
+  </path>
+  
+  
+  <target name="compile.module.daft_parser" depends="compile.module.daft_parser.production,compile.module.daft_parser.tests" description="Compile module daft parser"/>
+  
+  <target name="compile.module.daft_parser.production" depends="register.custom.compilers" description="Compile module daft parser; production classes">
+    <mkdir dir="${daft_parser.output.dir}"/>
+    <javac2 destdir="${daft_parser.output.dir}" debug="${compiler.debug}" nowarn="${compiler.generate.no.warnings}" memorymaximumsize="${compiler.max.memory}" fork="true" executable="${module.jdk.bin.daft_parser}/javac">
+      <compilerarg line="${compiler.args.daft_parser}"/>
+      <bootclasspath refid="daft_parser.module.bootclasspath"/>
+      <classpath refid="daft_parser.module.production.classpath"/>
+      <src refid="daft_parser.module.sourcepath"/>
+      <patternset refid="excluded.from.compilation.daft_parser"/>
+    </javac2>
+    
+    <copy todir="${daft_parser.output.dir}">
+      <fileset dir="${module.daft_parser.basedir}/src">
+        <patternset refid="compiler.resources"/>
+        <type type="file"/>
+      </fileset>
+    </copy>
+  </target>
+  
+  <target name="compile.module.daft_parser.tests" depends="register.custom.compilers,compile.module.daft_parser.production" description="compile module daft parser; test classes" unless="skip.tests"/>
+  
+  <target name="clean.module.daft_parser" description="cleanup module">
+    <delete dir="${daft_parser.output.dir}"/>
+    <delete dir="${daft_parser.testoutput.dir}"/>
+  </target>
+</project>

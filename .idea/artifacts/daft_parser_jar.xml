@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="daft parser:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/daft_parser_jar</output-path>
+    <root id="archive" name="daft parser.jar">
+      <element id="module-output" name="daft parser" />
+      <element id="module-source" name="daft parser" />
+    </root>
+  </artifact>
+</component>
