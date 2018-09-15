@@ -66,7 +66,9 @@ class DaftAd {
     }
 
     Date getDate() {
-        String date = getDocument().selectFirst("#description .description_extras").html().split("<h3>Date Entered/Renewed:</h3>")[1].split("<h3>Property Views:</h3>")[0].split(" ")[0];
+        Element element = getDocument().selectFirst("#description .description_extras");
+        if(element == null) return null;
+        String date = element.html().split("<h3>Date Entered/Renewed:</h3>")[1].split("<h3>Property Views:</h3>")[0].split(" ")[0];
         DateFormat format = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         try {
             return format.parse(date);

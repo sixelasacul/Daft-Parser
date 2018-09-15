@@ -9,8 +9,11 @@ import org.apache.poi.xssf.usermodel.*;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Hashtable;
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.Set;
 
 class Workbook {
@@ -87,7 +90,8 @@ class Workbook {
             this.createLink(distanceCell, Maps.routeFrom(acc.getAddress()));
 
             if(acc.getDateEntered() == null) System.out.println("No value for DateEntered.");
-            row.createCell(this.headers.get("Date entered"), CellType.STRING).setCellValue(acc.getDateEntered());
+            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
+            row.createCell(this.headers.get("Date entered"), CellType.STRING).setCellValue(df.format(acc.getDateEntered()));
 
             if(acc.getViews() == 0) System.out.println("No value for Views.");
             row.createCell(this.headers.get("Views"), CellType.NUMERIC).setCellValue(acc.getViews());
