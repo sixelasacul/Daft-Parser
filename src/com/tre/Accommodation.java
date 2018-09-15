@@ -2,7 +2,7 @@ package com.tre;
 
 import java.util.Date;
 
-public class Accommodation {
+class Accommodation {
     private int Id;
     private Date DateEntered;
     private int Views;
@@ -22,7 +22,7 @@ public class Accommodation {
     private int Total;
     private String Ber;
 
-    public Accommodation() {
+    Accommodation() {
         this.setId(0);
         this.setViews(0);
         this.setFlatmatesNumber(0);
@@ -43,147 +43,147 @@ public class Accommodation {
         this.setBer("");
     }
 
-    public int getId() {
+    int getId() {
         return Id;
     }
 
-    public void setId(int id) {
+    void setId(int id) {
         Id = id;
     }
 
-    public Date getDateEntered() {
+    Date getDateEntered() {
         return DateEntered;
     }
 
-    public void setDateEntered(Date date) {
+    void setDateEntered(Date date) {
         DateEntered = date;
     }
 
-    public int getViews() {
+    int getViews() {
         return Views;
     }
 
-    public void setViews(int views) {
+    void setViews(int views) {
         Views = views;
     }
 
-    public String getType() {
+    String getType() {
         return Type;
     }
 
-    public void setType(String type) {
+    void setType(String type) {
         Type = type;
     }
 
-    public String getAddress() {
+    String getAddress() {
         return Address;
     }
 
-    public void setAddress(String address) {
+    void setAddress(String address) {
         Address = address;
     }
 
-    public float getDistance() {
+    float getDistance() {
         return Distance;
     }
 
-    public void setDistance(float distance) {
+    void setDistance(float distance) {
         Distance = distance;
     }
 
-    public String getBedroom() {
+    String getBedroom() {
         return Bedroom;
     }
 
-    public void setBedroom(String bedroom) {
+    void setBedroom(String bedroom) {
         Bedroom = bedroom;
     }
 
-    public String getOwnerOccupied() {
+    String getOwnerOccupied() {
         return OwnerOccupied;
     }
 
-    public void setOwnerOccupied(String ownerOccupied) {
+    void setOwnerOccupied(String ownerOccupied) {
         OwnerOccupied = ownerOccupied;
     }
 
-    public int getFlatmatesNumber() {
+    int getFlatmatesNumber() {
         return FlatmatesNumber;
     }
 
-    public void setFlatmatesNumber(int number) {
+    void setFlatmatesNumber(int number) {
         FlatmatesNumber = number;
     }
 
-    public String getFlatmatesInfo() {
+    String getFlatmatesInfo() {
         return FlatmatesInfo;
     }
 
-    public void setFlatmatesInfo(String info) {
+    void setFlatmatesInfo(String info) {
         FlatmatesInfo = info;
     }
 
-    public String getLookingFor() {
+    String getLookingFor() {
         return LookingFor;
     }
 
-    public void setLookingFor(String lookingFor) {
+    void setLookingFor(String lookingFor) {
         LookingFor = lookingFor;
     }
 
-    public String getPreferences() {
+    String getPreferences() {
         return Preferences;
     }
 
-    public void setPreferences(String preferences) {
+    void setPreferences(String preferences) {
         Preferences = preferences;
     }
 
-    public String getFacilities() {
+    String getFacilities() {
         return Facilities;
     }
 
-    public void setFacilities(String facilities) {
+    void setFacilities(String facilities) {
         Facilities = facilities;
     }
 
-    public int getPrice() {
+    int getPrice() {
         return Price;
     }
 
-    public void setPrice(int price) {
+    void setPrice(int price) {
         Price = price;
     }
 
-    public String getFrequency() {
+    String getFrequency() {
         return Frequency;
     }
 
-    public void setFrequency(String frequency) {
+    void setFrequency(String frequency) {
         Frequency = frequency;
     }
 
-    public int getBills() {
+    int getBills() {
         return Bills;
     }
 
-    public void setBills(int bills) {
+    void setBills(int bills) {
         Bills = bills;
     }
 
-    public int getTotal() {
+    int getTotal() {
         return Total;
     }
 
-    public void setTotal(int total) {
+    void setTotal(int total) {
         Total = total;
     }
 
-    public String getBer() {
+    String getBer() {
         return Ber;
     }
 
-    public void setBer(String ber) {
+    void setBer(String ber) {
         Ber = ber;
     }
 }

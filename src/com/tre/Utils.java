@@ -8,8 +8,8 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Scanner;
 
-public class Utils {
-    public static URL transformUrl(String link) {
+class Utils {
+    static URL transformUrl(String link) {
         try {
             return new URL(link);
         } catch(java.net.MalformedURLException e) {
@@ -17,11 +17,11 @@ public class Utils {
         }
     }
 
-    public static Document parseHtml(String html) {
+    static Document parseHtml(String html) {
         return Jsoup.parse(html);
     }
 
-    public static String getHtml(URL url) {
+    static String getHtml(URL url) {
         String content = null;
         try {
             URLConnection cnx = url.openConnection();

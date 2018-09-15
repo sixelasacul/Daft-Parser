@@ -1,8 +1,6 @@
 package com.tre;
 
 import org.xml.sax.InputSource;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathExpression;
 import javax.xml.xpath.XPathFactory;
@@ -14,14 +12,16 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class Maps {
+class Maps {
+    //Faire en sorte de masquer DESTINATION et KEY automatiquement au commit vers git
+    //Ou faire en sorte que la source ne soit pas dans le code directement
     private final static String DESTINATION = "WORK_ADDRESS";
-    private final static String KEY = "GOOGLE_DISTANCE_MATRIX_API_KEY";
+    private final static String KEY = "GOOGLE_DISTANCE_MATRIX_API_LEY";
     private final static String MODE = "walking";
     private final static String UNITS = "metric";
     private final static String RETURN = "xml";
 
-    public static String pointLocation(String address) {
+    static String pointLocation(String address) {
         try {
             return String.format("https://www.google.com/maps/search/?api=1&query=%s", URLEncoder.encode(address, "UTF-8"));
         } catch(java.io.UnsupportedEncodingException e) {
@@ -30,7 +30,7 @@ public class Maps {
         }
     }
 
-    public static String routeFrom(String address) {
+    static String routeFrom(String address) {
         try {
             return String.format("https://www.google.com/maps/dir/?api=1&travelmode=%s&destination=%s&origin=%s", MODE, URLEncoder.encode(DESTINATION, "UTF-8"), URLEncoder.encode(address, "UTF-8"));
         } catch(java.io.UnsupportedEncodingException e) {
@@ -39,7 +39,7 @@ public class Maps {
         }
     }
 
-    public static float getDistance(String address) {
+    static float getDistance(String address) {
         float distance = 0;
         try {
             String query = String.format("https://maps.googleapis.com/maps/api/distancematrix/%s", RETURN);

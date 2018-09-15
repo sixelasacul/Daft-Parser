@@ -13,7 +13,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Set;
 
-public class Workbook {
+class Workbook {
     private Hashtable<String, Integer> headers;
     private String file;
     private XSSFWorkbook workbook;
@@ -21,7 +21,7 @@ public class Workbook {
     private CreationHelper helper;
     private XSSFCellStyle hyperlinkStyle;
 
-    public Workbook(String file) {
+    Workbook(String file) {
         this.initHeaders();
         try {
             this.file = file;
@@ -59,7 +59,7 @@ public class Workbook {
         cell.setCellStyle(this.hyperlinkStyle);
     }
 
-    public boolean AddRow(Accommodation acc) {
+    boolean AddRow(Accommodation acc) {
         if(this.isIdRegistered(acc.getId())) {
             System.out.println("Accommodation already registered.");
             return false;
@@ -133,7 +133,7 @@ public class Workbook {
         }
     }
 
-    public boolean SaveAndClose() {
+    boolean SaveAndClose() {
         try {
             FileOutputStream fos = new FileOutputStream(new File(this.file));
             this.workbook.write(fos);

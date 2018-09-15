@@ -9,16 +9,15 @@ public class Main {
     public static void main(String[] args) {
         String link = "";
         String path = "";
-        Scanner s = null;
 	    if(args.length == 0) {
-	        s = new Scanner(System.in);
+	        Scanner s = new Scanner(System.in);
 	        System.out.println(String.format("Enter Daft.ie url (%s):", link));
-	        if(!s.nextLine().isEmpty()) link = s.nextLine();
+	        link = s.nextLine();
             System.out.println(String.format("Path to Excel file (%s):", path));
-            if(!s.nextLine().isEmpty()) path = s.nextLine();
+            path = s.nextLine();
         } else {
-            if(args[0].isEmpty()) link = args[0];
-            if(args[1].isEmpty()) path = args[1];
+            link = args[0];
+            path = args[1];
         }
 
         DaftAd ad = new DaftAd();
@@ -26,7 +25,10 @@ public class Main {
         if(!ad.setLink(link)) {
             System.out.println("Invalid link or daft.ie url");
             System.exit(0);
+            //Reprendre au début du programme
         }
+
+        System.out.println("Parsing...");
 
         Accommodation acc = new Accommodation();
         acc.setId(ad.getId());
