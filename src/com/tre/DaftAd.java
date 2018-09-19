@@ -90,9 +90,17 @@ class DaftAd {
     }
 
     int getPrice() {
-        Element price = getDocument().selectFirst("#smi-price-string");
-        if(price != null) return Integer.parseInt(price.ownText().split(" ")[0].split("€")[1].replace(",", ""));
-        else return 0;
+        Element element = getDocument().selectFirst("#smi-price-string");
+        int price = 0;
+        if(element != null) {
+            String[] arr = element.ownText().split(" ");
+            for(String el : arr) {
+                if(el.contains("€")) {
+                    price = Integer.parseInt(el.split("€")[1].replace(",", ""));
+                }
+            }
+        }
+        return price;
     }
 
     String getFrequency() {
