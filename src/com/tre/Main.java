@@ -33,6 +33,8 @@ public class Main {
         Accommodation acc = new Accommodation();
         acc.setId(ad.getId());
         acc.setAddress(ad.getAddress());
+        acc.setDistrict(ad.getDistrict());
+        acc.setMoveInDate(ad.getMoveInDate());
         acc.setBedroom(ad.getBedroom());
         acc.setBer(ad.getBer());
         //acc.setBills();

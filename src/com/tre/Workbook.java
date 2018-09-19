@@ -17,15 +17,15 @@ import java.util.Locale;
 import java.util.Set;
 
 class Workbook {
-    private Hashtable<String, Integer> headers;
     private String file;
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private CreationHelper helper;
     private XSSFCellStyle hyperlinkStyle;
+    private DateFormat dateFormat;
 
     Workbook(String file) {
-        this.initHeaders();
+        this.dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
         try {
             this.file = file;
             File oFile = new File(this.file);
@@ -72,64 +72,75 @@ class Workbook {
             Row row = this.sheet.createRow(index);
 
             if(acc.getId() == 0) System.out.println("No value for Id.");
-            Cell idCell = row.createCell(this.headers.get("Id"), CellType.NUMERIC);
-            idCell.setCellValue(acc.getId());
-            this.createLink(idCell, String.format("https://www.daft.ie/%d", acc.getId()));
+            else {
+                Cell idCell = row.createCell(Headers.Id.ordinal(), CellType.NUMERIC);
+                idCell.setCellValue(acc.getId());
+                this.createLink(idCell, String.format("https://www.daft.ie/%d", acc.getId()));
+            }
 
             if(acc.getType().isEmpty()) System.out.println("No value for Type.");
-            row.createCell(this.headers.get("Type"), CellType.STRING).setCellValue(acc.getType());
+            else row.createCell(Headers.Type.ordinal(), CellType.STRING).setCellValue(acc.getType());
 
             if(acc.getAddress().isEmpty()) System.out.println("No value for Address.");
-            Cell addressCell = row.createCell(this.headers.get("Address"), CellType.STRING);
-            addressCell.setCellValue(acc.getAddress());
-            this.createLink(addressCell, Maps.pointLocation(acc.getAddress()));
+            else {
+                Cell addressCell = row.createCell(Headers.Address.ordinal(), CellType.STRING);
+                addressCell.setCellValue(acc.getAddress());
+                this.createLink(addressCell, Maps.pointLocation(acc.getAddress()));
+            }
+
+            if(acc.getDistrict().isEmpty()) System.out.println("No value for District");
+            else row.createCell(Headers.District.ordinal(), CellType.STRING).setCellValue(acc.getDistrict());
 
             if(acc.getDistance() == 0) System.out.println("No value for Distance.");
-            Cell distanceCell = row.createCell(this.headers.get("Distance from work (m)"), CellType.NUMERIC);
-            distanceCell.setCellValue(acc.getDistance());
-            this.createLink(distanceCell, Maps.routeFrom(acc.getAddress()));
+            else {
+                Cell distanceCell = row.createCell(Headers.Distance.ordinal(), CellType.NUMERIC);
+                distanceCell.setCellValue(acc.getDistance());
+                this.createLink(distanceCell, Maps.routeFrom(acc.getAddress()));
+            }
 
             if(acc.getDateEntered() == null) System.out.println("No value for DateEntered.");
-            DateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
-            row.createCell(this.headers.get("Date entered"), CellType.STRING).setCellValue(df.format(acc.getDateEntered()));
+            else row.createCell(Headers.DateEntered.ordinal(), CellType.STRING).setCellValue(this.dateFormat.format(acc.getDateEntered()));
 
             if(acc.getViews() == 0) System.out.println("No value for Views.");
-            row.createCell(this.headers.get("Views"), CellType.NUMERIC).setCellValue(acc.getViews());
+            else row.createCell(Headers.Views.ordinal(), CellType.NUMERIC).setCellValue(acc.getViews());
+
+            if(acc.getMoveInDate() == null) System.out.println("No value for MoveInDate.");
+            else row.createCell(Headers.MoveInDate.ordinal(), CellType.STRING).setCellValue(this.dateFormat.format(acc.getMoveInDate()));
 
             if(acc.getBedroom().isEmpty()) System.out.println("No value for Bedroom.");
-            row.createCell(this.headers.get("Bedroom"), CellType.STRING).setCellValue(acc.getBedroom());
+            else row.createCell(Headers.Bedroom.ordinal(), CellType.STRING).setCellValue(acc.getBedroom());
 
             if(acc.getOwnerOccupied().isEmpty()) System.out.println("No value for OwnerOccupied.");
-            row.createCell(this.headers.get("Owned occupied"), CellType.STRING).setCellValue(acc.getOwnerOccupied());
+            else row.createCell(Headers.OwnerOccupied.ordinal(), CellType.STRING).setCellValue(acc.getOwnerOccupied());
 
             if(acc.getFlatmatesNumber() == 0) System.out.println("No value for FlatmatesNumber.");
-            row.createCell(this.headers.get("Flatmates number"), CellType.NUMERIC).setCellValue(acc.getFlatmatesNumber());
+            else row.createCell(Headers.FlatmatesNumber.ordinal(), CellType.NUMERIC).setCellValue(acc.getFlatmatesNumber());
 
             if(acc.getFlatmatesInfo().isEmpty()) System.out.println("No value for FlatmatesInfo.");
-            row.createCell(this.headers.get("Flatmates info"), CellType.STRING).setCellValue(acc.getFlatmatesInfo());
+            else row.createCell(Headers.FlatmatesInfo.ordinal(), CellType.STRING).setCellValue(acc.getFlatmatesInfo());
 
             if(acc.getLookingFor().isEmpty()) System.out.println("No value for LookingFor.");
-            row.createCell(this.headers.get("Looking for"), CellType.STRING).setCellValue(acc.getLookingFor());
+            else row.createCell(Headers.LookingFor.ordinal(), CellType.STRING).setCellValue(acc.getLookingFor());
 
             if(acc.getPreferences().isEmpty()) System.out.println("No value for Preferences.");
-            row.createCell(this.headers.get("Preferences"), CellType.STRING).setCellValue(acc.getPreferences());
+            else row.createCell(Headers.Preferences.ordinal(), CellType.STRING).setCellValue(acc.getPreferences());
 
             if(acc.getFacilities().isEmpty()) System.out.println("No value for Facilities.");
-            row.createCell(this.headers.get("Facilities"), CellType.STRING).setCellValue(acc.getFacilities());
+            else row.createCell(Headers.Facilities.ordinal(), CellType.STRING).setCellValue(acc.getFacilities());
 
             if(acc.getPrice() == 0) System.out.println("No value for Price.");
-            row.createCell(this.headers.get("Price"), CellType.NUMERIC).setCellValue(acc.getPrice());
+            else row.createCell(Headers.Price.ordinal(), CellType.NUMERIC).setCellValue(acc.getPrice());
 
             if(acc.getFrequency().isEmpty()) System.out.println("No value for Frequency.");
-            row.createCell(this.headers.get("Per"), CellType.STRING).setCellValue(acc.getFrequency());
+            else row.createCell(Headers.Per.ordinal(), CellType.STRING).setCellValue(acc.getFrequency());
 
             if(acc.getBills() == 0) System.out.println("No value for Bills.");
-            row.createCell(this.headers.get("Bills"), CellType.NUMERIC).setCellValue(acc.getBills());
+            else row.createCell(Headers.Bills.ordinal(), CellType.NUMERIC).setCellValue(acc.getBills());
 
             if(acc.getBer().isEmpty()) System.out.println("No value for Ber.");
-            row.createCell(this.headers.get("BER"), CellType.STRING).setCellValue(acc.getBer());
+            else row.createCell(Headers.BER.ordinal(), CellType.STRING).setCellValue(acc.getBer());
 
-            row.createCell(this.headers.get("Total/Month"), CellType.FORMULA).setCellFormula(String.format("(N%1$d+P%1$d)*IF(O%1$d = \"month\",1,4)", index+1));
+            row.createCell(Headers.Total.ordinal(), CellType.FORMULA).setCellFormula(String.format("(N%1$d+P%1$d)*IF(O%1$d = \"month\",1,4)", index+1));
             return true;
         } catch(Exception e) {
             e.printStackTrace();
@@ -156,10 +167,10 @@ class Workbook {
         Iterator<Row> rows = this.sheet.rowIterator();
         while(rows.hasNext()) {
             Row row = rows.next();
-            Cell cell = row.getCell(this.headers.get("Id"));
+            Cell cell = row.getCell(Headers.Id.ordinal());
             switch(cell.getCellType()) {
                 case STRING:
-                    if(cell.getStringCellValue().equals("Id") || Integer.parseInt(cell.getStringCellValue()) != 0)
+                    if(cell.getStringCellValue().equals(Headers.Id.toString()) || Integer.parseInt(cell.getStringCellValue()) != 0)
                         i++;
                     break;
                 case NUMERIC:
@@ -177,7 +188,7 @@ class Workbook {
         rows.next();
         while(rows.hasNext()) {
             Row row = rows.next();
-            int id = (int) row.getCell(this.headers.get("Id")).getNumericCellValue();
+            int id = (int) row.getCell(Headers.Id.ordinal()).getNumericCellValue();
             if(id != 0) i++;
         }
         return i;
@@ -187,40 +198,16 @@ class Workbook {
         Iterator<Row> rows = this.sheet.rowIterator();
         rows.next();
         while(rows.hasNext()) {
-            int readId = (int)rows.next().getCell(this.headers.get("Id")).getNumericCellValue();
+            int readId = (int)rows.next().getCell(Headers.Id.ordinal()).getNumericCellValue();
             if(id == readId) return true;
         }
         return false;
     }
 
-    private void initHeaders() {
-        this.headers = new Hashtable<>();
-        this.headers.put("Id", 0);
-        this.headers.put("Type", 1);
-        this.headers.put("Address", 2);
-        this.headers.put("Distance from work (m)", 3);
-        this.headers.put("Date entered", 4);
-        this.headers.put("Views", 5);
-        this.headers.put("Bedroom", 6);
-        this.headers.put("Owned occupied", 7);
-        this.headers.put("Flatmates number", 8);
-        this.headers.put("Flatmates info", 9);
-        this.headers.put("Looking for", 10);
-        this.headers.put("Preferences", 11);
-        this.headers.put("Facilities", 12);
-        this.headers.put("Price", 13);
-        this.headers.put("Per", 14);
-        this.headers.put("Bills", 15);
-        this.headers.put("BER", 16);
-        this.headers.put("Total/Month", 17);
-        this.headers.put("Notes", 18);
-    }
-
     private void writeHeaders() {
         Row row = this.sheet.createRow(0);
-        Set<String> keys = this.headers.keySet();
-        for(String key : keys) {
-            row.createCell(this.headers.get(key), CellType.STRING).setCellValue(key);
+        for(Headers h : Headers.values()) {
+            row.createCell(h.ordinal(), CellType.STRING).setCellValue(h.toString());
         }
     }
 

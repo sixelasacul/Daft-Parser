@@ -7,6 +7,8 @@ class Accommodation {
     private Date DateEntered;
     private int Views;
     private String Type;
+    private String District;
+    private Date MoveInDate;
     private String Address;
     private float Distance;
     private String Bedroom;
@@ -31,6 +33,8 @@ class Accommodation {
         this.setTotal(0);
         this.setDistance(0);
         this.setDateEntered(null);
+        this.setMoveInDate(null);
+        this.setDistrict("");
         this.setType("");
         this.setAddress("");
         this.setBedroom("");
@@ -185,5 +189,21 @@ class Accommodation {
 
     void setBer(String ber) {
         Ber = ber;
+    }
+
+    String getDistrict() {
+        return District;
+    }
+
+    void setDistrict(String district) {
+        District = district;
+    }
+
+    Date getMoveInDate() {
+        return MoveInDate;
+    }
+
+    void setMoveInDate(Date moveindate) {
+        MoveInDate = moveindate;
     }
 }

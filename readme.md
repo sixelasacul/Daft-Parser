@@ -6,18 +6,21 @@ Little application to parse daft.ie ads and retreive some information into Excel
 
 * Id (and the link to the ad)
 * Type of accommodation (Apartment, house, flat, ...)
+* Address
+* District
 * Distance from work (km)
 * Date entered
 * Number of views
+* Available to move in
 * Type of bedroom
 * Is the accommodation owner occupied
 * Number of people currently living
 * The people that are looked for
 * Facilities
-* Price
+* Price (€)
 * Weekly or Monthly rental
 * BER
-* Total
+* Total (€)
 
 ## Notes
 

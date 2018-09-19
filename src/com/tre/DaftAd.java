@@ -91,7 +91,7 @@ class DaftAd {
 
     int getPrice() {
         Element price = getDocument().selectFirst("#smi-price-string");
-        if(price != null) return Integer.parseInt(price.ownText().split(" ")[0].split("€")[1]);
+        if(price != null) return Integer.parseInt(price.ownText().split(" ")[0].split("€")[1].replace(",", ""));
         else return 0;
     }
 
@@ -165,6 +165,32 @@ class DaftAd {
         String temp = ber.attr("alt").split(" ")[1];
         if(temp.matches("exempt")) return "exempt";
         else return temp;
+    }
+
+    String getDistrict() {
+        Element address = getDocument().selectFirst("#address_box h1");
+        if(address != null) {
+            String[] array = address.ownText().split(", ");
+            return array[array.length-1];
+        }
+        else return "";
+    }
+
+    Date getMoveInDate() {
+        Elements select = getDocument().select("#smi-tab-overview .description_block");
+        Element element = null;
+        for(Element e : select) {
+            if(e.id().isEmpty())
+                element = e;
+        }
+        if(element == null) return null;
+        String date = element.html().split("<h3 class=\"left_title\">Available to Move In:</h3>")[1].split("<div>")[0].replaceAll("(st|nd|rd|th)", "").trim();
+        DateFormat format = new SimpleDateFormat("EEEEE dd MMMMM yyyy", Locale.ENGLISH);
+        try {
+            return format.parse(date);
+        } catch(java.text.ParseException e) {
+            return null;
+        }
     }
 
     private boolean isValidDaftUrl(URL url) {
