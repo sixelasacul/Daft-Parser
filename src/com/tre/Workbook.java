@@ -141,6 +141,9 @@ class Workbook {
             if(acc.getBer().isEmpty()) System.out.println("No value for Ber.");
             else row.createCell(Headers.BER.ordinal(), CellType.STRING).setCellValue(acc.getBer());
 
+            row.createCell(Headers.Contacted.ordinal(), CellType.STRING).setCellValue("No");
+            row.createCell(Headers.Answer.ordinal(), CellType.STRING).setCellValue("None");
+
             String priceCol = CellReference.convertNumToColString(Headers.Price.ordinal());
             String billsCol = CellReference.convertNumToColString(Headers.Bills.ordinal());
             String perCol = CellReference.convertNumToColString(Headers.Per.ordinal());
@@ -172,16 +175,19 @@ class Workbook {
         while(rows.hasNext()) {
             Row row = rows.next();
             Cell cell = row.getCell(Headers.Id.ordinal());
-            switch(cell.getCellType()) {
-                case STRING:
-                    if(cell.getStringCellValue().equals(Headers.Id.toString()) || Integer.parseInt(cell.getStringCellValue()) != 0)
-                        i++;
-                    break;
-                case NUMERIC:
-                    if((int)cell.getNumericCellValue() != 0)
-                        i++;
-                    break;
+            if(cell != null) {
+                switch(cell.getCellType()) {
+                    case STRING:
+                        if(cell.getStringCellValue().equals(Headers.Id.toString()) || Integer.parseInt(cell.getStringCellValue()) != 0)
+                            i++;
+                        break;
+                    case NUMERIC:
+                        if((int)cell.getNumericCellValue() != 0)
+                            i++;
+                        break;
+                }
             }
+
         }
         return i;
     }
@@ -202,8 +208,13 @@ class Workbook {
         Iterator<Row> rows = this.sheet.rowIterator();
         rows.next();
         while(rows.hasNext()) {
-            int readId = (int)rows.next().getCell(Headers.Id.ordinal()).getNumericCellValue();
-            if(id == readId) return true;
+            Row row = rows.next();
+            Cell cell = row.getCell(Headers.Id.ordinal());
+            if(cell != null) {
+                double db = cell.getNumericCellValue();
+                int readId = (int)db;
+                if(id == readId) return true;
+            }
         }
         return false;
     }
