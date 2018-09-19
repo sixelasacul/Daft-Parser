@@ -5,6 +5,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.CreationHelper;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.util.CellReference;
 import org.apache.poi.xssf.usermodel.*;
 import java.io.File;
 import java.io.FileInputStream;
@@ -140,7 +141,10 @@ class Workbook {
             if(acc.getBer().isEmpty()) System.out.println("No value for Ber.");
             else row.createCell(Headers.BER.ordinal(), CellType.STRING).setCellValue(acc.getBer());
 
-            row.createCell(Headers.Total.ordinal(), CellType.FORMULA).setCellFormula(String.format("(N%1$d+P%1$d)*IF(O%1$d = \"month\",1,4)", index+1));
+            String priceCol = CellReference.convertNumToColString(Headers.Price.ordinal());
+            String billsCol = CellReference.convertNumToColString(Headers.Bills.ordinal());
+            String perCol = CellReference.convertNumToColString(Headers.Per.ordinal());
+            row.createCell(Headers.Total.ordinal(), CellType.FORMULA).setCellFormula(String.format("(%2$s%1$d+%3$s%1$d)*IF(%4$s%1$d = \"month\",1,4)", index+1, priceCol, billsCol, perCol));
             return true;
         } catch(Exception e) {
             e.printStackTrace();
