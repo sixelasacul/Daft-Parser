@@ -192,8 +192,8 @@ class DaftAd {
                 element = e;
         }
         if(element == null) return null;
-        String date = element.html().split("<h3 class=\"left_title\">Available to Move In:</h3>")[1].split("<div>")[0].replaceAll("(st|nd|rd|th)", "").trim();
-        DateFormat format = new SimpleDateFormat("EEEEE dd MMMMM yyyy", Locale.ENGLISH);
+        String date = element.html().split("<h3 class=\"left_title\">Available to Move In:</h3>")[1].split("<div>")[0].replaceAll("(?<=\\d)(st|nd|rd|th)", "").trim();
+        DateFormat format = new SimpleDateFormat("EEEE dd MMMM yyyy", Locale.ENGLISH);
         try {
             return format.parse(date);
         } catch(java.text.ParseException e) {
